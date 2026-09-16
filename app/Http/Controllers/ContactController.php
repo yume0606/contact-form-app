@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
+use App\Http\Requests\Api\V1\StoreContactRequest;
 
 class ContactController extends Controller
 {
@@ -12,9 +15,23 @@ class ContactController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        $tags = Tag::all();
+
+        return view('contact.index', compact('categories', 'tags'));
     }
 
+    public function confirm(StoreContactRequest $request)
+    {
+        $validated = $request->validated();
+
+        $category = Category::find($validated['category_id']);
+
+        $tagIds = $validated['tag_ids'] ?? [];
+        $tags = Tag::whereIn('id', $tagIds)->get();
+
+        return view('contact.confirm', compact('validated', 'category', 'tags'));
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -26,11 +43,23 @@ class ContactController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreContactRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $tagIds = $validated['tag_ids'] ?? [];
+        unset($validated['tag_ids']);
+
+        $contact = Contact::create($validated);
+
+        $contact->tags()->attach($tagIds);
+
+        return redirect('/thanks');
     }
 
+    public function thanks()
+    {
+        return view('contact.thanks');
+    }
     /**
      * Display the specified resource.
      */
