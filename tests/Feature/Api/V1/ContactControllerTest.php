@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\Api\V1;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Category;
 use App\Models\Contact;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ContactControllerTest extends TestCase
 {
@@ -36,6 +36,7 @@ class ContactControllerTest extends TestCase
             'email' => 'test@example.com',
         ]);
     }
+
     public function test_バリデーションエラー時は422が返ること(): void
     {
         $data = [];
@@ -45,7 +46,8 @@ class ContactControllerTest extends TestCase
         $response->assertStatus(422);
         $response->assertJsonValidationErrors(['first_name', 'last_name', 'email']);
     }
-    public function test_詳細情報がJSON形式で返ること(): void
+
+    public function test_詳細情報が_jso_n形式で返ること(): void
     {
         $contact = Contact::factory()->create();
 
@@ -59,7 +61,8 @@ class ContactControllerTest extends TestCase
             ],
         ]);
     }
-    public function test_存在しないIDで404エラーが返ること(): void
+
+    public function test_存在しない_i_dで404エラーが返ること(): void
     {
         $response = $this->getJson('/api/v1/contacts/9999');
 
@@ -68,6 +71,7 @@ class ContactControllerTest extends TestCase
             'error' => 'お問い合わせが見つかりませんでした。',
         ]);
     }
+
     public function test_一覧がページネーション付きで返ること(): void
     {
         Contact::factory()->count(15)->create();
@@ -78,6 +82,7 @@ class ContactControllerTest extends TestCase
         $response->assertJsonCount(10, 'data');
         $response->assertJsonPath('meta.total', 15);
     }
+
     public function test_キーワード検索で絞り込めること(): void
     {
         Contact::factory()->create(['first_name' => '山田']);
@@ -89,6 +94,7 @@ class ContactControllerTest extends TestCase
         $response->assertJsonCount(1, 'data');
         $response->assertJsonPath('data.0.first_name', '山田');
     }
+
     public function test_性別で絞り込めること(): void
     {
         Contact::factory()->create(['gender' => 1]);
@@ -100,6 +106,7 @@ class ContactControllerTest extends TestCase
         $response->assertJsonCount(1, 'data');
         $response->assertJsonPath('data.0.gender', 1);
     }
+
     public function test_更新できて200が返ること(): void
     {
         $contact = Contact::factory()->create();
@@ -126,6 +133,7 @@ class ContactControllerTest extends TestCase
             'email' => 'updated@example.com',
         ]);
     }
+
     public function test_更新時バリデーションエラーで422が返ること(): void
     {
         $contact = Contact::factory()->create();
@@ -138,7 +146,7 @@ class ContactControllerTest extends TestCase
         $response->assertJsonValidationErrors(['first_name', 'last_name', 'email']);
     }
 
-    public function test_更新時存在しないIDで404が返ること(): void
+    public function test_更新時存在しない_i_dで404が返ること(): void
     {
         $category = Category::factory()->create();
 
@@ -159,6 +167,7 @@ class ContactControllerTest extends TestCase
 
         $response->assertStatus(404);
     }
+
     public function test_削除できて204が返ること(): void
     {
         $contact = Contact::factory()->create();
@@ -171,7 +180,7 @@ class ContactControllerTest extends TestCase
         ]);
     }
 
-    public function test_削除時存在しないIDで404が返ること(): void
+    public function test_削除時存在しない_i_dで404が返ること(): void
     {
         $response = $this->deleteJson('/api/v1/contacts/9999');
 

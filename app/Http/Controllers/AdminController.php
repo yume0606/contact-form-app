@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contact;
-use App\Models\Category;
-use App\Models\Tag;
 use App\Http\Requests\Api\V1\IndexContactRequest;
+use App\Models\Category;
+use App\Models\Contact;
+use App\Models\Tag;
 
 class AdminController extends Controller
 {

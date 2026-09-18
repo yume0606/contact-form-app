@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Category;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ContactFactory extends Factory
 {
@@ -20,7 +20,7 @@ class ContactFactory extends Factory
             'last_name' => $this->faker->firstName(),
             'gender' => $this->faker->randomElement([1, 2, 3]),
             'email' => $this->faker->unique()->safeEmail(),
-            'tel' => '0' . mt_rand(1000000000, 9999999999),
+            'tel' => '0'.mt_rand(1000000000, 9999999999),
             'address' => $this->faker->address(),
             'building' => $this->faker->optional()->secondaryAddress(),
             'detail' => $this->faker->realText(100),

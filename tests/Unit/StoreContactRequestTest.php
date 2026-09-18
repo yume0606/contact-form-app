@@ -2,12 +2,12 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Http\Requests\StoreContactRequest;
 use App\Models\Category;
 use App\Models\Tag;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Validator;
+use Tests\TestCase;
 
 class StoreContactRequestTest extends TestCase
 {
@@ -30,7 +30,7 @@ class StoreContactRequestTest extends TestCase
             'tag_ids' => [],
         ];
 
-        $validator = Validator::make($data, (new StoreContactRequest())->rules());
+        $validator = Validator::make($data, (new StoreContactRequest)->rules());
 
         $this->assertFalse($validator->fails());
     }
@@ -52,10 +52,11 @@ class StoreContactRequestTest extends TestCase
             'tag_ids' => [],
         ];
 
-        $validator = Validator::make($data, (new StoreContactRequest())->rules());
+        $validator = Validator::make($data, (new StoreContactRequest)->rules());
 
         $this->assertTrue($validator->fails());
     }
+
     public function test_タグ入力を受け付ける(): void
     {
         $category = Category::factory()->create();
@@ -74,7 +75,7 @@ class StoreContactRequestTest extends TestCase
             'tag_ids' => [$tag->id],
         ];
 
-        $validator = Validator::make($data, (new StoreContactRequest())->rules());
+        $validator = Validator::make($data, (new StoreContactRequest)->rules());
 
         $this->assertFalse($validator->fails());
     }

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contact;
+use App\Http\Requests\StoreContactRequest;
 use App\Models\Category;
+use App\Models\Contact;
 use App\Models\Tag;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreContactRequest;
 
 class ContactController extends Controller
 {
@@ -32,6 +32,7 @@ class ContactController extends Controller
 
         return view('contact.confirm', compact('validated', 'category', 'tags'));
     }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -60,6 +61,7 @@ class ContactController extends Controller
     {
         return view('contact.thanks');
     }
+
     /**
      * Display the specified resource.
      */

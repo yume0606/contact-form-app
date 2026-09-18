@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Category;
 use App\Models\Contact;
 use App\Models\Tag;
+use Faker\Factory;
+use Illuminate\Database\Seeder;
 
 class ContactSeeder extends Seeder
 {
@@ -15,7 +15,7 @@ class ContactSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = \Faker\Factory::create('ja_JP');
+        $faker = Factory::create('ja_JP');
 
         for ($i = 0; $i < 20; $i++) {
             $category = Category::inRandomOrder()->first();
@@ -26,7 +26,7 @@ class ContactSeeder extends Seeder
                 'last_name' => $faker->firstName(),
                 'gender' => $faker->randomElement([1, 2, 3]),
                 'email' => $faker->safeEmail(),
-                'tel' => '0' . mt_rand(1000000000, 9999999999),
+                'tel' => '0'.mt_rand(1000000000, 9999999999),
                 'address' => $faker->address(),
                 'building' => $faker->optional()->secondaryAddress(),
                 'detail' => $faker->realText(100),

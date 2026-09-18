@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Http\Requests\Api\V1\StoreContactRequest;
-use App\Models\Contact;
-use App\Http\Resources\ContactResource;
 use App\Http\Requests\Api\V1\IndexContactRequest;
+use App\Http\Requests\Api\V1\StoreContactRequest;
 use App\Http\Requests\Api\V1\UpdateContactRequest;
+use App\Http\Resources\ContactResource;
+use App\Models\Contact;
+
 class ContactController extends Controller
 {
     /**
@@ -70,6 +70,7 @@ class ContactController extends Controller
     public function show(Contact $contact)
     {
         $contact->load(['category', 'tags']);
+
         return new ContactResource($contact);
     }
 
@@ -88,7 +89,7 @@ class ContactController extends Controller
 
         $contact->load(['category', 'tags']);
 
-        return (new ContactResource($contact));
+        return new ContactResource($contact);
     }
 
     /**

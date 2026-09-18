@@ -2,11 +2,11 @@
 
 namespace Tests\Unit\Api\V1;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Http\Requests\Api\V1\IndexContactRequest;
 use App\Models\Category;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Validator;
+use Tests\TestCase;
 
 class IndexContactRequestTest extends TestCase
 {
@@ -25,7 +25,7 @@ class IndexContactRequestTest extends TestCase
             'per_page' => 10,
         ];
 
-        $validator = Validator::make($data, (new IndexContactRequest())->rules());
+        $validator = Validator::make($data, (new IndexContactRequest)->rules());
 
         $this->assertFalse($validator->fails());
     }
@@ -34,7 +34,7 @@ class IndexContactRequestTest extends TestCase
     {
         $data = [];
 
-        $validator = Validator::make($data, (new IndexContactRequest())->rules());
+        $validator = Validator::make($data, (new IndexContactRequest)->rules());
 
         $this->assertFalse($validator->fails());
     }
@@ -45,18 +45,18 @@ class IndexContactRequestTest extends TestCase
             'gender' => 4,
         ];
 
-        $validator = Validator::make($data, (new IndexContactRequest())->rules());
+        $validator = Validator::make($data, (new IndexContactRequest)->rules());
 
         $this->assertTrue($validator->fails());
     }
 
-    public function test_存在しないカテゴリIDは拒否すること(): void
+    public function test_存在しないカテゴリ_i_dは拒否すること(): void
     {
         $data = [
             'category_id' => 9999,
         ];
 
-        $validator = Validator::make($data, (new IndexContactRequest())->rules());
+        $validator = Validator::make($data, (new IndexContactRequest)->rules());
 
         $this->assertTrue($validator->fails());
     }
