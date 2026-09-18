@@ -89,7 +89,7 @@ erDiagram
 1. リポジトリをクローンする
 
     ```bash
-    git clone <このリポジトリのURL>
+    git clone https://github.com/yume0606/contact-form-app.git
     cd contact-form-app
     ```
 
